@@ -1,43 +1,178 @@
 {
   "project_info": {
-    "project_number": "424839694233",
-    "firebase_url": "https://apishop.firebaseio.com",
-    "project_id": "apishop",
-    "storage_bucket": "apishop.appspot.com"
+    "project_number": "340986983672",
+    "firebase_url": "https://nguoitimship.firebaseio.com",
+    "project_id": "nguoitimship",
+    "storage_bucket": "nguoitimship.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:424839694233:android:4d89fc3ed799f18fa4b508",
+        "mobilesdk_app_id": "1:340986983672:android:8a937951dca2686415770d",
         "android_client_info": {
-          "package_name": "com.quangvuong.myapp"
+          "package_name": "huynhnhon.ionic.invoicemanager"
         }
       },
       "oauth_client": [
         {
-          "client_id": "424839694233-t37ja1pq6q203h0dsnjgcgcanhc61oqv.apps.googleusercontent.com",
+          "client_id": "340986983672-j7qamj1f31botqcr22s4k7aridchq63g.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.quangvuong.myapp",
-            "certificate_hash": "04ecb5e94cb05e1f978bdca7e945baae34351d77"
+            "package_name": "huynhnhon.ionic.invoicemanager",
+            "certificate_hash": "ee2b4b1e46bff489eb05f715b8230639f44eb20d"
           }
         },
         {
-          "client_id": "424839694233-6qj6q8157i25clmsu659fn92i8edfnsf.apps.googleusercontent.com",
+          "client_id": "340986983672-46m4mnsq17l9olbn431al0cm46r6eap3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "huynhnhon.ionic.invoicemanager",
+            "certificate_hash": "356c8e7ae85391d811240ab945146f03e83dfced"
+          }
+        },
+        {
+          "client_id": "340986983672-2fia8v0ar3br5ao1jv2v1pm7rqt9j7hp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "huynhnhon.ionic.invoicemanager",
+            "certificate_hash": "580f895c342d633edf8ffd9c4d83869628c5e859"
+          }
+        },
+        {
+          "client_id": "340986983672-jd5eg8tqt23ci0kmf6a1khdvqdo3n87e.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAY_57C1mM6U6XtXwPa_d5A1CIOKglc_Mo"
+          "current_key": "AIzaSyCWx-FgfUTmCOdXXabcxP7hZA1Z392g1p4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "424839694233-6qj6q8157i25clmsu659fn92i8edfnsf.apps.googleusercontent.com",
+              "client_id": "340986983672-jd5eg8tqt23ci0kmf6a1khdvqdo3n87e.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "340986983672-ighs3o6d183r6c62ic1ho99h2qh2s16j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "huynhnhon.ionic.invoices"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340986983672:android:f88877ca87ecff80",
+        "android_client_info": {
+          "package_name": "shop.shopngocanh.helloworld"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "340986983672-v2t97ou6rqn38vtdcovkb6hmq3d7k4u2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "shop.shopngocanh.helloworld",
+            "certificate_hash": "910e61b3b242ccb00e4eacfedaf5809840e6d48b"
+          }
+        },
+        {
+          "client_id": "340986983672-3te7106ao7ssgivol40f6bnlmm7ecmkf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "shop.shopngocanh.helloworld",
+            "certificate_hash": "c2f4cea4d64a1c23edb094f82cb8be947a6288be"
+          }
+        },
+        {
+          "client_id": "340986983672-jjamvgvgql90atf307gg44vdclqb93hi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "shop.shopngocanh.helloworld",
+            "certificate_hash": "4c682ca29615fc300f167372eae61246f3d3d781"
+          }
+        },
+        {
+          "client_id": "340986983672-mhd59khiop3psnl1jdu2hg37bv2urrc6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "shop.shopngocanh.helloworld",
+            "certificate_hash": "3358f3c8593e03e8cc9e72f1cae968d341968575"
+          }
+        },
+        {
+          "client_id": "340986983672-jd5eg8tqt23ci0kmf6a1khdvqdo3n87e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWx-FgfUTmCOdXXabcxP7hZA1Z392g1p4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "340986983672-jd5eg8tqt23ci0kmf6a1khdvqdo3n87e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "340986983672-ighs3o6d183r6c62ic1ho99h2qh2s16j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "huynhnhon.ionic.invoices"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340986983672:android:d8f6ab6fc5d71a0515770d",
+        "android_client_info": {
+          "package_name": "shop.shopngocanh.myshop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "340986983672-h8ojg6107ic89n8429rk0eseeapr07jd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "shop.shopngocanh.myshop",
+            "certificate_hash": "fb8b74e8f924b6826802373526fdee23ca324631"
+          }
+        },
+        {
+          "client_id": "340986983672-jd5eg8tqt23ci0kmf6a1khdvqdo3n87e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWx-FgfUTmCOdXXabcxP7hZA1Z392g1p4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "340986983672-jd5eg8tqt23ci0kmf6a1khdvqdo3n87e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "340986983672-ighs3o6d183r6c62ic1ho99h2qh2s16j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "huynhnhon.ionic.invoices"
+              }
             }
           ]
         }

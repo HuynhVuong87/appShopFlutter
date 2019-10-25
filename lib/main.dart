@@ -26,7 +26,6 @@ class MyAppState extends State<MyApp> {
       theme: ThemeData(primarySwatch: Colors.deepOrange),
       home: CupertinoTabScaffold(
         tabBar: CupertinoTabBar(
-          // border: bo,
           inactiveColor: Colors.black54,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(

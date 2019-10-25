@@ -149,7 +149,7 @@ class _GoogleSignAppStates extends State<GoogleSignApp> {
                               : SizedBox(),
                           new IconButton(
                             color: Colors.white,
-                            icon: Icon(FontAwesomeIcons.cartPlus),
+                            icon: Icon(FontAwesomeIcons.shoppingCart),
                             onPressed: () => {},
                           ),
                           new IconButton(

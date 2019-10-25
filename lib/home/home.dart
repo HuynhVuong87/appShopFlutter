@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'dart:math' as math;
 
 class HomePage extends StatefulWidget {
   @override
@@ -56,7 +59,9 @@ class _HomePageStates extends State<HomePage> {
 
     return new MaterialApp(
         home: new Scaffold(
-            resizeToAvoidBottomPadding: true,
+            resizeToAvoidBottomInset: false,
+            resizeToAvoidBottomPadding: false,
+            backgroundColor: Colors.grey[300],
             body: CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(
@@ -67,6 +72,7 @@ class _HomePageStates extends State<HomePage> {
                   title: Container(
                     height: 40.0,
                     child: TextField(
+                      textInputAction: TextInputAction.search,
                       focusNode: _focus,
                       style: TextStyle(fontSize: 16, color: Colors.grey),
                       decoration: InputDecoration(
@@ -118,19 +124,111 @@ class _HomePageStates extends State<HomePage> {
                   ),
                   actions: actionIcon(),
                 ),
+                SliverPersistentHeader(
+                  floating: false,
+                  pinned: false,
+                  delegate: _SliverAppBarDelegate(
+                    minHeight: 60.0,
+                    maxHeight: 60.0,
+                    child: Container(
+                        margin: EdgeInsets.only(top: 10.0),
+                        color: Colors.lightBlue,
+                        child: Center(child: Text("Sản phẩm"))),
+                  ),
+                ),
                 SliverGrid(
                     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 200.0,
-                      mainAxisSpacing: 10.0,
-                      crossAxisSpacing: 10.0,
-                      childAspectRatio: 4.0,
+                      mainAxisSpacing: 6.0,
+                      crossAxisSpacing: 6.0,
+                      childAspectRatio: 0.7,
                     ),
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
                         return Container(
+                          margin: index % 2 == 0
+                              ? EdgeInsets.only(left: 6.0)
+                              : EdgeInsets.only(right: 6.0),
                           alignment: Alignment.center,
-                          color: Colors.teal[100 * (index % 9)],
-                          child: Text('Grid Item $index'),
+                          color: Colors.white,
+                          child: Stack(
+                            children: <Widget>[
+                              Column(
+                                children: <Widget>[
+                                  Container(
+                                    child: Image.network(
+                                      'https://cbu01.alicdn.com/img/ibank/2018/220/168/9350861022_759254113.400x400.jpg',
+                                      height:
+                                          MediaQuery.of(context).size.width /
+                                                  2 -
+                                              6.0 -
+                                              3,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      padding: EdgeInsets.only(
+                                          top: 15.0, left: 10.0, right: 10.0),
+                                      child: Text(
+                                        "Túi chườm nóng Túi chườm nóng Túi chườm nóng Túi chườm nóng",
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
+                                        style: TextStyle(fontSize: 13),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    alignment: AlignmentDirectional.bottomEnd,
+                                    padding: EdgeInsets.all(10.0),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Text(
+                                            new FlutterMoneyFormatter(
+                                                amount: 150000,
+                                                settings:
+                                                    MoneyFormatterSettings(
+                                                  symbol: "₫",
+                                                  symbolAndNumberSeparator: '',
+                                                  fractionDigits: 0,
+                                                  thousandSeparator: '.',
+                                                )).output.symbolOnLeft,
+                                            style: TextStyle(
+                                                fontSize: 17,
+                                                color: Colors.red),
+                                          ),
+                                        ),
+                                        Text(
+                                          "Đã bán 997",
+                                          style: TextStyle(fontSize: 12),
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: Container(
+                                  height: 50.0,
+                                  width: 50.0,
+                                  child: ClipPath(
+                                    clipper: TrapeziumClipper(),
+                                    child: Container(
+                                      color: Colors.yellow[600],
+                                      child: Column(
+                                        children: <Widget>[
+                                          Text("50%"),
+                                          Text("GIẢM")
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         );
                       },
                       childCount: 30,
@@ -138,4 +236,47 @@ class _HomePageStates extends State<HomePage> {
               ],
             )));
   }
+}
+
+class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  _SliverAppBarDelegate({
+    @required this.minHeight,
+    @required this.maxHeight,
+    @required this.child,
+  });
+  final double minHeight;
+  final double maxHeight;
+  final Widget child;
+  @override
+  double get minExtent => minHeight;
+  @override
+  double get maxExtent => math.max(maxHeight, minHeight);
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return new SizedBox.expand(child: child);
+  }
+
+  @override
+  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
+    return maxHeight != oldDelegate.maxHeight ||
+        minHeight != oldDelegate.minHeight ||
+        child != oldDelegate.child;
+  }
+}
+
+class TrapeziumClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final path = Path();
+    path.lineTo(size.width, 0.0);
+    path.lineTo(size.width, size.height);
+    path.lineTo(size.width/2, size.height*7/8);
+    path.lineTo(0.0, size.height);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(TrapeziumClipper oldClipper) => false;
 }
