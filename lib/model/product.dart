@@ -4,13 +4,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Product {
   int _id;
   String _name;
-  String _description;
   String _image;
+  List<dynamic> _imageList;
+  List<dynamic> _attributes;
   int _price;
+  int _priceBeforeDiscount;
   int _sold;
+  int _stock;
   String _discount;
+  double _rating;
+  String _description;
 
-  Product(this._id, this._name, this._image, this._description, this._price);
+  // Product(this._id, this._name, this._image, this._description, this._price);
 
   // Product.map(dynamic obj) {
   //   this._id = obj['itemid'];
@@ -24,9 +29,14 @@ class Product {
   int get id => _id;
   String get name => _name;
   String get image => _image;
+  List<dynamic> get imageList => _imageList;
+  List<dynamic> get attributes => _attributes;
   int get price => _price;
+  int get priceBeforeDiscount => _priceBeforeDiscount;
   int get sold => _sold;
+  int get stock => _stock;
   String get discount => _discount;
+  double get rating => _rating;
   String get description => _description;
 
   // Map<String, dynamic> toMap() {
@@ -45,9 +55,14 @@ class Product {
     this._id = map['itemid'];
     this._name = map['name'];
     this._image = map['image'];
+    this._imageList = map['image_list'];
+    this._attributes = map['attributes'];
     this._price = map['price'];
+    this._priceBeforeDiscount = map['price_before_discount'];
     this._sold = map['sold'];
+    this._stock = map['stock'];
     this._discount = map['discount'];
+    this._rating = double.parse(map['rating_star'].toString());
     this._description = map['description'];
   }
 }

@@ -12,6 +12,7 @@ import 'package:myapp/home/productDetail.dart';
 import 'dart:math' as math;
 
 import 'package:myapp/model/product.dart';
+import 'package:myapp/widget-service/widget-service.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -171,8 +172,7 @@ class _HomePageStates extends State<HomePage> {
       body: Container(
         margin: EdgeInsets.only(
             bottom: MediaQuery.of(context).padding.bottom +
-                MediaQuery.of(context).viewInsets.bottom +
-                6.0),
+                MediaQuery.of(context).viewInsets.bottom),
         child: CustomScrollView(
           slivers: <Widget>[
             appBar(),
@@ -197,14 +197,18 @@ class _HomePageStates extends State<HomePage> {
                 ),
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext sliverGridContext, int index) {
+                    // print(this.items[index].imageList[0]);
                     if (!state) {
                       return Text("Loading");
                     } else {
                       return GestureDetector(
                         onTap: () {
-                          Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute<void>(
-                              builder: (BuildContext context) =>
-                                  ProductDetail(product: this.items[index],)));
+                          Navigator.of(context, rootNavigator: true).push(
+                              CupertinoPageRoute<void>(
+                                  builder: (BuildContext context) =>
+                                      ProductDetail(
+                                        product: this.items[index],
+                                      )));
                           // ProductDetail();
                         },
                         child: Container(
@@ -305,37 +309,10 @@ class _HomePageStates extends State<HomePage> {
                               this.items[index].discount != null
                                   ? Align(
                                       alignment: Alignment.topRight,
-                                      child: Container(
-                                        height: 50.0,
-                                        width: 50.0,
-                                        child: ClipPath(
-                                          clipper: TrapeziumClipper(),
-                                          child: Container(
-                                            padding: EdgeInsets.only(top: 3.0),
-                                            color: Colors.yellow[600],
-                                            child: Column(
-                                              children: <Widget>[
-                                                Text(
-                                                    "${this.items[index].discount}",
-                                                    style: TextStyle(
-                                                        color: Colors.red,
-                                                        fontWeight:
-                                                            FontWeight.w500)),
-                                                Container(
-                                                  padding:
-                                                      EdgeInsets.only(top: 4.0),
-                                                  child: Text("GIẢM",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontWeight:
-                                                              FontWeight.bold)),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    )
+                                      child: WidgetService.discount(
+                                          height: 50.0,
+                                          width: 50.0,
+                                          discount: this.items[index].discount))
                                   : Container(),
                             ],
                           ),
@@ -377,20 +354,4 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
         minHeight != oldDelegate.minHeight ||
         child != oldDelegate.child;
   }
-}
-
-class TrapeziumClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.lineTo(size.width, 0.0);
-    path.lineTo(size.width, size.height);
-    path.lineTo(size.width / 2, size.height * 7 / 8);
-    path.lineTo(0.0, size.height);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(TrapeziumClipper oldClipper) => false;
 }
