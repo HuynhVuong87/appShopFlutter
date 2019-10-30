@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:myapp/me/auth/auth.dart';
+import 'package:myapp/model/user.dart';
 
 import 'account.dart';
 
@@ -109,11 +111,52 @@ class _GoogleSignAppStates extends State<GoogleSignApp> {
     Widget buttonOr(BuildContext context) {
       Widget widget;
       details == null
-          ? widget = RaisedButton(
-              color: Colors.white,
-              child: const Text("Login with Google",
-                  style: TextStyle(fontSize: 21, color: Colors.orange)),
-              onPressed: () => {_signIn(context)},
+          ? widget = Container(
+              child: Row(
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  MaterialButton(
+                    color: Colors.white,
+                    textColor: Colors.orange,
+                    padding: EdgeInsets.all(0),
+                    child: const Text("Đăng nhập"),
+                    onPressed: () => {
+                      if (User.id == null)
+                        {
+                          Navigator.of(context, rootNavigator: true).push(
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                            return AuthPage(indexTab: 0);
+                          }))
+                        }
+                      else
+                        {print("object")}
+                    },
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 10),
+                    child: MaterialButton(
+                      color: Colors.orange,
+                      shape: Border.all(width: 1, color: Colors.white),
+                      textColor: Colors.white,
+                      padding: EdgeInsets.all(0),
+                      child: const Text("Đăng ký"),
+                      onPressed: () => {
+                        if (User.id == null)
+                          {
+                            Navigator.of(context, rootNavigator: true).push(
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) {
+                              return AuthPage(indexTab: 1);
+                            }))
+                          }
+                        else
+                          {print("object")}
+                      },
+                    ),
+                  )
+                ],
+              ),
             )
           : widget = Text(
               details.userName,
@@ -126,105 +169,102 @@ class _GoogleSignAppStates extends State<GoogleSignApp> {
       home: new Scaffold(
         backgroundColor: Colors.grey[200],
         body: Builder(
-          builder: (contextBuilder) => new ListView(
-            children: <Widget>[
-              new Container(
-                  color: Colors.orange[600],
-                  child: new Column(
-                    children: <Widget>[
-                      //row 1
-                      new Row(
+          builder: (contextBuilder) => new CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                backgroundColor: Colors.orange,
+                expandedHeight: 130,
+                flexibleSpace: FlexibleSpaceBar(
+                  background: Container(
+                      padding: EdgeInsets.all(15),
+                      height: 50,
+                      child: Column(
                         children: <Widget>[
-                          //icon1
-                          new Expanded(
-                            child: new Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                            ),
-                          ),
-                          details != null
-                              ? new IconButton(
-                                  color: Colors.white,
-                                  icon: Icon(FontAwesomeIcons.cog),
-                                  onPressed: () => account(context))
-                              : SizedBox(),
-                          new IconButton(
-                            color: Colors.white,
-                            icon: Icon(FontAwesomeIcons.shoppingCart),
-                            onPressed: () => {},
-                          ),
-                          new IconButton(
-                            color: Colors.white,
-                            icon: Icon(FontAwesomeIcons.solidCommentDots),
-                            onPressed: () => {},
+                          Spacer(),
+                          Row(
+                            children: <Widget>[
+                              avatar(),
+                              Spacer(),
+                              buttonOr(contextBuilder),
+                            ],
                           ),
                         ],
-                      ),
-                      //row 2
-                      new Container(
-                        padding:
-                            const EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 20.0),
-                        child: new Column(
-                          children: <Widget>[
-                            new Row(
-                              children: <Widget>[
-                                //avatar
-                                new Expanded(
-                                  child: new Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[avatar()],
-                                  ),
-                                ),
-                                //user name or button login
-                                buttonOr(contextBuilder)
-                              ],
-                            ),
-                          ],
-                        ),
-                      )
+                      )),
+                ),
+                actions: <Widget>[
+                  details == null
+                      ? Container()
+                      : IconButton(
+                          color: Colors.white,
+                          icon: Icon(
+                            FontAwesomeIcons.cog,
+                            size: 18,
+                          ),
+                          onPressed: () => account(context)),
+                  IconButton(
+                    color: Colors.white,
+                    icon: Icon(
+                      FontAwesomeIcons.shoppingCart,
+                      // size: 18,
+                    ),
+                    onPressed: () => {},
+                  ),
+                  IconButton(
+                    color: Colors.white,
+                    icon: Icon(
+                      FontAwesomeIcons.solidCommentDots,
+                      // size: 18,
+                    ),
+                    onPressed: () => {},
+                  )
+                ],
+              ),
+              SliverToBoxAdapter(
+                child: Container(
+                  margin: EdgeInsets.only(top: 10.0),
+                  padding: EdgeInsets.only(right: 15.0, left: 15.0),
+                  color: Colors.white,
+                  child: new Column(
+                    children: <Widget>[
+                      rowWidget(
+                          Icons.event_note, Color(0xFF3c74b4), "Đơn mua", true),
+                      rowWidget(Icons.phonelink_ring, Colors.green,
+                          "Đơn nạp & Dịch vụ", false),
                     ],
-                  )),
-              new Container(
-                margin: EdgeInsets.only(top: 10.0),
-                padding: EdgeInsets.only(right: 15.0, left: 15.0),
-                color: Colors.white,
-                child: new Column(
-                  children: <Widget>[
-                    rowWidget(
-                        Icons.event_note, Color(0xFF3c74b4), "Đơn mua", true),
-                    rowWidget(Icons.phonelink_ring, Colors.green,
-                        "Đơn nạp & Dịch vụ", false),
-                  ],
+                  ),
                 ),
               ),
-              new Container(
-                margin: EdgeInsets.only(top: 10.0),
-                padding: EdgeInsets.only(right: 15.0, left: 15.0),
-                color: Colors.white,
-                child: new Column(
-                  children: <Widget>[
-                    rowWidget(
-                        Icons.favorite_border, Colors.red, "Đã thích", true),
-                    rowWidget(
-                        Icons.access_time, Color(0xFF3c74b4), "Mới xem", true),
-                    rowWidget(
-                        Icons.star, Colors.green, "Đánh giá của tôi", false),
-                  ],
+              SliverToBoxAdapter(
+                child: Container(
+                  margin: EdgeInsets.only(top: 10.0),
+                  padding: EdgeInsets.only(right: 15.0, left: 15.0),
+                  color: Colors.white,
+                  child: new Column(
+                    children: <Widget>[
+                      rowWidget(
+                          Icons.favorite_border, Colors.red, "Đã thích", true),
+                      rowWidget(Icons.access_time, Color(0xFF3c74b4), "Mới xem",
+                          true),
+                      rowWidget(
+                          Icons.star, Colors.green, "Đánh giá của tôi", false),
+                    ],
+                  ),
                 ),
               ),
-              new Container(
-                margin: EdgeInsets.only(
-                    top: 10.0,
-                    bottom: MediaQuery.of(context).padding.bottom +
-                        MediaQuery.of(context).viewInsets.bottom +
-                        10.0),
-                padding: EdgeInsets.only(right: 15.0, left: 15.0),
-                color: Colors.white,
-                child: new Column(
-                  children: <Widget>[
-                    rowWidget(FontAwesomeIcons.user, Color(0xFF3c74b4),
-                        "Thiết lập tài khoản", false),
-                  ],
+              SliverToBoxAdapter(
+                child: Container(
+                  margin: EdgeInsets.only(
+                      top: 10.0,
+                      bottom: MediaQuery.of(context).padding.bottom +
+                          MediaQuery.of(context).viewInsets.bottom),
+                  padding: EdgeInsets.only(right: 15.0, left: 15.0),
+                  color: Colors.white,
+                  child: new Column(
+                    children: <Widget>[
+                      rowWidget(FontAwesomeIcons.user, Color(0xFF3c74b4),
+                          "Thiết lập tài khoản", false),
+                    ],
+                  ),
                 ),
               )
             ],
