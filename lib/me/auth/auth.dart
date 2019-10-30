@@ -14,6 +14,7 @@ class AuthPage extends StatefulWidget {
 
 class AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
   final int indexTab;
+  static GlobalKey authKey = new GlobalKey();
   AuthPageState(this.indexTab);
 
   TabController _tabController;
@@ -33,6 +34,7 @@ class AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      key: authKey,
       home: DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -60,7 +62,10 @@ class AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
             ],
           ),
           body: TabBarView(
-            children: <Widget>[SignInUpPage(indexTab: 0), SignInUpPage(indexTab: 1)],
+            children: <Widget>[
+              SignInUpPage(indexTab: 0),
+              SignInUpPage(indexTab: 1)
+            ],
             controller: _tabController,
           ),
         ),

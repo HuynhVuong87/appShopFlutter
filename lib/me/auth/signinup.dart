@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp/me/auth/auth.dart';
+import 'package:myapp/model/user.dart';
 
 class SignInUpPage extends StatefulWidget {
   final int indexTab;
-
-  const SignInUpPage({Key key,@required this.indexTab}) : super(key: key);
+  const SignInUpPage({Key key, @required this.indexTab})
+      : super(key: key);
   @override
   State<StatefulWidget> createState() {
     return SignInUpPageState(this.indexTab);
@@ -74,8 +76,11 @@ class SignInUpPageState extends State<SignInUpPage> {
                   padding: EdgeInsets.all(15),
                   textColor: Colors.white,
                   color: Colors.red,
-                  child: this.indexTab ==0 ? Text("Đăng nhập"): Text("Đăng ký"),
-                  onPressed: () {},
+                  child:
+                      this.indexTab == 0 ? Text("Đăng nhập") : Text("Đăng ký"),
+                  onPressed: () {
+                    // Navigator.pop(authContext);
+                  },
                 ),
               )
             ],
@@ -95,7 +100,11 @@ class SignInUpPageState extends State<SignInUpPage> {
                 textColor: Colors.white,
                 color: Colors.red,
                 child: Text("Đăng nhập bằng Google"),
-                onPressed: () {},
+                onPressed: () {
+                  UserService().signIn(context).then((f) {
+                    Navigator.pop(AuthPageState.authKey.currentContext);
+                  });
+                },
               ),
             ),
             MaterialButton(
@@ -103,7 +112,9 @@ class SignInUpPageState extends State<SignInUpPage> {
               padding: EdgeInsets.all(15),
               color: Colors.blue,
               child: Text("Đăng nhập bằng Facebook"),
-              onPressed: () {},
+              onPressed: () {
+                // UserService().signInWithFb(context);
+              },
             )
           ],
         ),

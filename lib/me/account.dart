@@ -1,24 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:myapp/me/home.dart';
+import 'package:myapp/model/user.dart';
 
 class ProfileScreen extends StatelessWidget {
-  final UserDetails detailsUser;
-  final GoogleSignIn _gSignIn = GoogleSignIn();
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  ProfileScreen({Key key, @required this.detailsUser}) : super(key: key);
-
-  _signOut(BuildContext context) async {
-    await _gSignIn.signOut();
-    await _firebaseAuth.signOut().then((_) {
-      Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => GoogleSignApp()),
-        ModalRoute.withName('/'),
-      );
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,33 +18,33 @@ class ProfileScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             CircleAvatar(
-              backgroundImage: NetworkImage(detailsUser.photoUrl),
+              backgroundImage: NetworkImage(User.imageUrl),
               radius: 50.0,
             ),
             SizedBox(
               height: 10.0,
             ),
             Text(
-              "Name: " + detailsUser.userName,
+              "Name: " + User.name,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                   fontSize: 20.0),
             ),
             Text(
-              "Email: " + detailsUser.userEmail,
+              "Email: " + User.email,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                   fontSize: 20.0),
             ),
-            Text(
-              "Provider: " + detailsUser.providerDetails,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  fontSize: 20.0),
-            ),
+            // Text(
+            //   "Provider: " + User.,
+            //   style: TextStyle(
+            //       fontWeight: FontWeight.bold,
+            //       color: Colors.black,
+            //       fontSize: 20.0),
+            // ),
             MaterialButton(
               child: Text(
                 "Sign Out",
@@ -67,7 +52,12 @@ class ProfileScreen extends StatelessWidget {
               ),
               textColor: Colors.white,
               color: Colors.red,
-              onPressed: () => _signOut(context),
+              onPressed: () => UserService().signOut().then((_) {
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => GoogleSignApp()),
+                  ModalRoute.withName('/'),
+                );
+              }),
             )
           ],
         ),

@@ -13,6 +13,7 @@ dependencies:
   firebase_analytics: ^4.0.2
   firebase_auth: ^0.11.1+3
   google_sign_in: ^3.2.2
+  # flutter_facebook_login: ^3.0.0
   cloud_firestore: ^0.12.9+4
   cupertino_icons: ^0.1.2
   font_awesome_flutter: ^8.5.0

@@ -1,11 +1,9 @@
 import 'dart:ffi';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:myapp/me/auth/auth.dart';
 import 'package:myapp/model/user.dart';
 
@@ -17,40 +15,17 @@ class GoogleSignApp extends StatefulWidget {
 }
 
 class _GoogleSignAppStates extends State<GoogleSignApp> {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = new GoogleSignIn();
-  UserDetails details;
-
-  Future<FirebaseUser> _signIn(BuildContext context) async {
-    Scaffold.of(context).showSnackBar(new SnackBar(
-      content: new Text("Sign In"),
-    ));
-    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-
-    FirebaseUser userDetails =
-        await _firebaseAuth.signInWithCredential(credential);
-    ProviderDetails providerInfo = new ProviderDetails(userDetails.providerId);
-    List<ProviderDetails> providerData = new List<ProviderDetails>();
-    providerData.add(providerInfo);
-    setState(() {
-      details = new UserDetails(userDetails.providerId, userDetails.displayName,
-          userDetails.photoUrl, userDetails.email, providerData);
-    });
-    return userDetails;
+  @override
+  void initState() {
+    super.initState();
+    // UserService().signOut();
   }
 
   account(BuildContext context) {
-    if (details != null)
+    if (User.id != null)
       Navigator.of(context).push(CupertinoPageRoute<Void>(
           title: "Thông tin",
-          builder: (BuildContext context) =>
-              ProfileScreen(detailsUser: details)));
+          builder: (BuildContext context) => ProfileScreen()));
   }
 
   Widget rowWidget(IconData icon, Color color, String title, bool border) {
@@ -94,7 +69,7 @@ class _GoogleSignAppStates extends State<GoogleSignApp> {
   @override
   Widget build(BuildContext context) {
     Widget avatar() {
-      if (details == null) {
+      if (User.id == null) {
         return Icon(
           CupertinoIcons.profile_circled,
           color: Colors.white,
@@ -102,15 +77,16 @@ class _GoogleSignAppStates extends State<GoogleSignApp> {
         );
       } else {
         return CircleAvatar(
-          backgroundImage: NetworkImage(details.photoUrl),
+          backgroundImage: NetworkImage(User.imageUrl),
           radius: 25.0,
         );
       }
     }
 
     Widget buttonOr(BuildContext context) {
+      print(User.name);
       Widget widget;
-      details == null
+      User.id == null
           ? widget = Container(
               child: Row(
                 // crossAxisAlignment: CrossAxisAlignment.start,
@@ -159,7 +135,7 @@ class _GoogleSignAppStates extends State<GoogleSignApp> {
               ),
             )
           : widget = Text(
-              details.userName,
+              User.name,
               style: TextStyle(fontSize: 25, color: Colors.white),
             );
       return widget;
@@ -192,7 +168,7 @@ class _GoogleSignAppStates extends State<GoogleSignApp> {
                       )),
                 ),
                 actions: <Widget>[
-                  details == null
+                  User.id == null
                       ? Container()
                       : IconButton(
                           color: Colors.white,
@@ -200,7 +176,7 @@ class _GoogleSignAppStates extends State<GoogleSignApp> {
                             FontAwesomeIcons.cog,
                             size: 18,
                           ),
-                          onPressed: () => account(context)),
+                          onPressed: () => {account(context)}),
                   IconButton(
                     color: Colors.white,
                     icon: Icon(
@@ -273,19 +249,4 @@ class _GoogleSignAppStates extends State<GoogleSignApp> {
       ),
     );
   }
-}
-
-class UserDetails {
-  final String providerDetails;
-  final String userName;
-  final String photoUrl;
-  final String userEmail;
-  final List<ProviderDetails> providerData;
-  UserDetails(this.providerDetails, this.userName, this.photoUrl,
-      this.userEmail, this.providerData);
-}
-
-class ProviderDetails {
-  final String providerDetails;
-  ProviderDetails(this.providerDetails);
 }
